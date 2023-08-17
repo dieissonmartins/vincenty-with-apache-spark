@@ -1,28 +1,36 @@
-# Use a imagem oficial do OpenJDK como base
-FROM openjdk:8-jre
+# set ubuntu image
+FROM ubuntu:latest
 
-LABEL maintainer="Dieisson <dieisson.martins.santos@gmail.com>"
-
-# Define a versão do Spark que será usada
+# set environment variables
 ENV SPARK_VERSION=3.2.4
 ENV HADOOP_VERSION=3.2
+ENV SPARK_HOME=/opt/spark
+ENV PATH=$PATH:$SPARK_HOME/bin
+ENV PYSPARK_PYTHON=/usr/bin/python3
 
-# Baixa e instala o Apache Spark
-RUN apt-get update && apt-get install -y wget && \
-    wget https://downloads.apache.org/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz && \
-    tar -xvzf spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz && \
+# install dependencies
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    openjdk-8-jre-headless \
+    wget \
+    python3 \
+    python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# download and install Spark by site
+RUN wget -q https://downloads.apache.org/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz && \
+    tar xzf spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz -C /opt && \
     rm spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz && \
-    mv spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION /spark
+    ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION $SPARK_HOME
 
-# Define variáveis de ambiente do Spark
-ENV SPARK_HOME=/spark
-ENV PATH=$SPARK_HOME/bin:$PATH
+# install Python packages
+RUN pip3 install findspark
 
-# Define o diretório de trabalho
-WORKDIR /app
+RUN pip3 install pyspark
 
-# Copia seus arquivos Python para dentro do container
-COPY main.py /app/
+# copy a sample python script
+COPY main.py /main.py
 
-# Comando padrão para iniciar o Spark (substitua por seus próprios comandos)
-CMD ["spark-submit", "main.py"]
+# Entry point
+CMD ["python3", "/main.py"]
