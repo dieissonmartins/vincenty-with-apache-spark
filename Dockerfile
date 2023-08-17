@@ -4,7 +4,7 @@ FROM openjdk:8-jre
 LABEL maintainer="Dieisson <dieisson.martins.santos@gmail.com>"
 
 # Define a versão do Spark que será usada
-ENV SPARK_VERSION=3.2.0
+ENV SPARK_VERSION=3.2.4
 ENV HADOOP_VERSION=3.2
 
 # Baixa e instala o Apache Spark
