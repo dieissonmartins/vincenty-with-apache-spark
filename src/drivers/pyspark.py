@@ -6,7 +6,9 @@ from pyspark.sql import SparkSession
 
 
 class Pyspark:
-    def start_session(self) -> SparkSession:
+
+    @classmethod
+    def start_session(cls) -> SparkSession:
         spark = SparkSession.builder.appName("SparkPythonVicenty").getOrCreate()
 
         return spark
