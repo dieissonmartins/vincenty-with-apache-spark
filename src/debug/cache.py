@@ -27,6 +27,9 @@ df = spark.createDataFrame(data, columns)
 # salva cache em memoria
 df.cache()
 
+# check is in cache
+print(df.is_cached)
+
 vr_filter = df.filter('age >= 10').collect()
 
 # show
