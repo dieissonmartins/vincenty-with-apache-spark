@@ -17,11 +17,3 @@ class ClassName:
     @classmethod
     def my_awesome_method(cls):
         return 'static method'
-
-
-c1 = ClassName()
-c1.set_name('Your name teste')
-
-name = c1.get_name()
-
-print(name)
