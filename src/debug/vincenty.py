@@ -3,6 +3,7 @@ from pyspark.sql.functions import col, udf
 from pyspark.sql.types import DoubleType
 import math
 from src.debug.utils.geo import Geo
+from geopy.distance import geodesic
 
 start_session = Pyspark()
 spark = start_session.start_session()
@@ -24,11 +25,19 @@ latitude = -19.990224673
 longitude = -44.00795550
 
 geo = Geo()
-distance = geo.vincenty_distance(latitude, longitude, my_latitude, my_longitude)
 
-# 170
+
+# com vicenty
+distance = geo.vincenty_distance(latitude, longitude, my_latitude, my_longitude)
 debug = distance
 
-#df = df.withColumn("distance", distance)
+# com haversine
+coord1 = (latitude, longitude)
+coord2 = (my_latitude, my_longitude)
+distance = geo.haversine_distance(coord1, coord2)
+debug2 = distance
 
+end = 0
+
+#df = df.withColumn("distance", distance)
 #df.select("point", "distance").show()

@@ -2,6 +2,7 @@ from pyspark.sql.functions import col, udf
 from pyspark.sql.types import DoubleType
 import math
 
+
 class Geo:
     def vincenty_distance(self, lat1, lon1, lat2, lon2) -> float:
         global cos2_alpha, sin_sigma, cos_sigma, cos2_sigma_m, sigma
@@ -51,3 +52,27 @@ class Geo:
         s = 6356752.314245 * A * (sigma - delta_sigma)  # Distância em metros
 
         return s
+
+    def haversine_distance(self, coord1, coord2):
+        # Raio médio da Terra em quilômetros
+        raio_terra = 6371.0
+
+        lat1, lon1 = coord1
+        lat2, lon2 = coord2
+
+        # Converter graus para radianos
+        lat1 = math.radians(lat1)
+        lon1 = math.radians(lon1)
+        lat2 = math.radians(lat2)
+        lon2 = math.radians(lon2)
+
+        # Diferenças das latitudes e longitudes
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+
+        # Fórmula de Haversine
+        a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+        distancia = raio_terra * c
+        return distancia * 1000

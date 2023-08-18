@@ -29,6 +29,10 @@ RUN pip3 install findspark
 
 RUN pip3 install pyspark
 
+RUN pip3 install geopy
+
+RUN pip3 install googlemaps
+
 # copy a sample python script
 COPY main.py /main.py
 
