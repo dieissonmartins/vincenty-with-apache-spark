@@ -37,6 +37,11 @@ coord2 = (my_latitude, my_longitude)
 distance = geo.haversine_distance(coord1, coord2)
 debug2 = distance
 
+# com geopy
+distance = geodesic(coord1, coord2).meters
+debug3 = distance
+
+
 end = 0
 
 #df = df.withColumn("distance", distance)
