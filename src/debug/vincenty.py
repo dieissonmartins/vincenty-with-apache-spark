@@ -4,6 +4,7 @@ from pyspark.sql.types import DoubleType
 import math
 from src.debug.utils.geo import Geo
 from geopy.distance import geodesic
+import googlemaps
 
 start_session = Pyspark()
 spark = start_session.start_session()
@@ -15,14 +16,14 @@ columns = ["point", "latitude", "longitude"]
 
 df = spark.createDataFrame(data, columns)
 
-my_latitude = -19.99092218
-my_longitude = -44.00930471
+my_latitude = -19.99172504
+my_longitude = -44.00998329
 
 #latitude = col('latitude')
 #longitude = col('longitude')
 
-latitude = -19.990224673
-longitude = -44.00795550
+latitude = -19.99470298
+longitude = -44.00664815
 
 geo = Geo()
 
@@ -40,6 +41,12 @@ debug2 = distance
 # com geopy
 distance = geodesic(coord1, coord2).meters
 debug3 = distance
+
+
+#gmaps = googlemaps.Client(key='KEY')
+#result = gmaps.distance_matrix(coord1, coord2, mode="driving", units="metric")
+#distance = result['rows'][0]['elements'][0]['distance']['value']
+#debug4 = distance
 
 
 end = 0
