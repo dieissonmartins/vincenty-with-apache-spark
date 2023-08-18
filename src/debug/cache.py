@@ -30,7 +30,11 @@ df.cache()
 # check is in cache
 print(df.is_cached)
 
-vr_filter = df.filter('age >= 10').collect()
+# remove cache em memoria
+df.unpersist()
+
+# check is in cache
+print(df.is_cached)
 
 # show
 df.show()
