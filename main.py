@@ -1,13 +1,8 @@
-import findspark
-
-findspark.init()
-
-from pyspark.sql import SparkSession
+from src.drivers.pyspark import Pyspark
 
 if __name__ == "__main__":
-    spark = SparkSession.builder \
-        .appName("SparkPythonVicenty") \
-        .getOrCreate()
+    start_session = Pyspark()
+    spark = start_session.start_session()
 
     data = [("Alice", 34), ("Bob", 45), ("Charlie", 29)]
     columns = ["Name", "Age"]
