@@ -25,13 +25,8 @@ RUN wget -q https://downloads.apache.org/spark/spark-$SPARK_VERSION/spark-$SPARK
     ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION $SPARK_HOME
 
 # install Python packages
-RUN pip3 install findspark
-
-RUN pip3 install pyspark
-
-RUN pip3 install geopy
-
-RUN pip3 install googlemaps
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
 # copy a sample python script
 COPY main.py /main.py
