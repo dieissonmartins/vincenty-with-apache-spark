@@ -32,4 +32,4 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 # Entry point
-CMD ["python3", "/main.py"]
+# CMD ["python3", "/main.py"]
