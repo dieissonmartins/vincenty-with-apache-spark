@@ -3,7 +3,9 @@ from pyspark.sql import SparkSession
 import pytest
 
 
-def test_start_session():
-    spark = Pyspark.start_session()
+class TestPyspark(object):
 
-    assert isinstance(spark, SparkSession), "One is not equal to two!"
+    def test_start_session(self):
+        spark = Pyspark.start_session()
+
+        assert isinstance(spark, SparkSession), "One is not equal to two!"
