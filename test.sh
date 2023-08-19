@@ -1,1 +1,1 @@
-python3 -m pytest
+docker run -it vincenty python3 -m pytest
