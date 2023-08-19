@@ -28,8 +28,12 @@ RUN wget -q https://downloads.apache.org/spark/spark-$SPARK_VERSION/spark-$SPARK
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
+
+# set the working directory inside the container
+WORKDIR /app
+
 # copy a sample python script
-COPY . .
+COPY . /app
 
 # Entry point
-# CMD ["python3", "/main.py"]
+CMD ["python3", "/main.py"]
