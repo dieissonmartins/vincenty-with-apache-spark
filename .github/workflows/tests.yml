@@ -17,4 +17,4 @@ jobs:
         run: docker build -t vincenty .
 
       - name: Run tests using Docker
-        run: docker run vincenty:latest bash test.sh
+        run:  docker run -it vincentyv4 bash test.sh
