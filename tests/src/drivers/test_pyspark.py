@@ -1,4 +1,4 @@
-from src.drivers.pyspark import Pyspark
+from app.src.drivers.pyspark import Pyspark
 from pyspark.sql import SparkSession
 import pytest
 
