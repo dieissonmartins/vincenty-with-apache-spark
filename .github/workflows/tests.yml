@@ -1,0 +1,20 @@
+name: Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t vincenty .
+
+      - name: Run tests using Docker
+        run: docker run vincenty pytest
