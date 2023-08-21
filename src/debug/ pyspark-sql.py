@@ -29,11 +29,25 @@ table_name = "despesas"
 # read data from MySQL using JDBC
 df = spark.read.jdbc(url=jdbc_url, table=table_name, properties=connection_properties)
 
+# test count
+count_rows = df.count()
+
+# schema
+df.printSchema()
+
+# select specific fields (columns)
+selected_rows = (df.select("id", "seq_orgao", "cod_municipio", "dsc_funcao"))
+
 # collect
 data_rows = df.collect()
 
-# convert the rows to a dictionary
-data_dict_list = [row.asDict() for row in data_rows]
+# percorrer a lista de linhas e acessar os valores das colunas
+for row in data_rows:
+    item_dict = row.asDict()
 
+    debug = 0
+
+# convert the rows to a dictionary
+# data_dict_list = [row.asDict() for row in data_rows]
 
 spark.stop()
