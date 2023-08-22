@@ -29,10 +29,10 @@ def calculate_distance(lat1, lng1, lat2, lng2):
 calculate_distance_udf = udf(calculate_distance)
 
 lat2 = -19.99172504
-lon2 = -44.00998329
+lng2 = -44.00998329
 
 # adicionar uma coluna com a distância entre as coordenadas
-df_with_distance = df.withColumn("distance", calculate_distance_udf(col('latitude'), col('longitude'), str(lat2)))
+df_with_distance = df.withColumn("distance", calculate_distance_udf(col('latitude'), col('longitude'), lit(lat2), lit(lng2)))
 
 # mostrar o DataFrame resultante
 df_with_distance.show()
