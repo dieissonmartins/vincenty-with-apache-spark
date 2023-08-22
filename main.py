@@ -7,6 +7,9 @@ if __name__ == "__main__":
     columns = ["Name", "Age"]
 
     df = spark.createDataFrame(data, columns)
+
+    df.foreach(lambda row: print(row.id, row.name))
+
     df.show()
 
     spark.stop()
